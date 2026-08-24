@@ -1,0 +1,97 @@
+-- Exercicio de fixação 17 / 08 
+use vendas;
+-- 1.a)
+SELECT * FROM cliente;
+
+-- b)
+SELECT * FROM produto;
+
+-- c)
+SELECT nome_cliente 
+FROM cliente;
+
+-- d)
+SELECT descricao_produto, valor_unitario 
+	from produto;
+
+-- e)
+SELECT nome_vendedor, salario_fixo, status 
+	from vendedor;
+
+-- f)
+SELECT * FROM cliente 
+	WHERE uf = "DF";
+
+-- g)
+SELECT * FROM produto 
+	WHERE valor_unitario > 20;
+
+-- h)
+SELECT descricao_produto, valor_unitario 
+	FROM produto 
+	WHERE valor_unitario <= 10;
+
+-- i)
+SELECT nome_vendedor, salario_fixo 
+	FROM vendedor
+	WHERE salario_fixo >= 3000;
+
+-- j)
+SELECT nome_vendedor 
+	FROM vendedor 
+	WHERE status = "Ativo";
+
+-- k)
+SELECT nome_cliente, cidade, uf
+	FROM cliente
+	WHERE cidade = 'POSSE';
+    
+-- l)
+SELECT * FROM produto
+WHERE  valor_unitario > 10 AND valor_unitario < 30;
+
+-- m)
+SELECT nome_cliente, cidade 
+FROM cliente
+WHERE cidade = "Posse" OR cidade = "Goiânia";
+
+-- n)
+SELECT descricao_produto, unidade_produto
+FROM produto
+WHERE unidade_produto <> "kg";
+
+-- o)
+SELECT descricao_produto, valor_unitario
+FROM produto
+ORDER BY valor_unitario;
+
+-- P)
+SELECT descricao_produto, valor_unitario
+FROM produto
+ORDER BY valor_unitario DESC ;
+
+-- q)
+SELECT descricao_produto, valor_unitario
+FROM produto
+ORDER BY valor_unitario 
+limit 5;
+    
+-- r)
+SELECT descricao_produto, valor_unitario
+FROM produto
+ORDER BY valor_unitario DESC
+limit 5;
+
+-- s)
+SELECT nome_cliente, cidade, uf
+FROM cliente
+WHERE uf = "GO"
+ORDER by nome_cliente ;
+
+-- t)
+SELECT  descricao_produto, unidade_produto, valor_unitario
+FROM produto
+WHERE valor_unitario > 10 
+AND valor_unitario < 50 
+AND unidade_produto <> "kg"
+ORDER BY valor_unitario DESC;
