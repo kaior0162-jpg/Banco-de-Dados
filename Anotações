@@ -1,0 +1,30 @@
+USE vendas;
+
+-- Mostrar todos os produtos
+SELECT * FROM produto;
+
+-- Mostrar todos os clientes
+SELECT * FROM cliente;
+
+-- Mostrar apenas nome e cidade cliente
+SELECT nome_cliente, cidade FROM cliente;
+
+-- Mostrar codigo, nome e uf do meu cliente
+SELECT codigo_cliente, nome_cliente, uf FROM cliente;
+
+-- Exibe a estrutura da tabela clientes
+DESC cliente;
+
+-- Mostrar cliente em especifico na tabela (quem mora em posse)
+SELECT nome_cliente, endereco
+	FROM cliente
+	WHERE cidade = 'POSSE';      -- Assim fica organizado mas pode ser na mesma linha!
+ 
+-- Mostrar os produtos  que tem
+-- preco maior do RS 10 e são pesados em kg
+-- Ordenado pelo DESCRISAO_PRODUTO
+SELECT *
+	FROM produto
+	WHERE valor_unitario > 10 AND unidade_produto = 'kg'  -- se for colocar o "ou" (or) é no lugar do and
+    ORDER BY descricao_produto DESC;
+    
