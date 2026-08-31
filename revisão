@@ -1,0 +1,404 @@
+
+
+📌 REVISÃO PARA A PROVA — BANCO DE DADOS II
+1. ORIENTAÇÕES DA REVISÃO
+Revisão para a Prova
+A prova se baseia nos conteúdos trabalhados até o momento na disciplina de Banco de Dados II.
+Sempre que possível, utilize o banco de dados vendas desenvolvido durante as aulas presenciais.
+Durante a revisão procure compreender:
+
+qual comando deve ser utilizado;
+qual é a finalidade de cada cláusula;
+quais dados serão retornados;
+por que uma consulta produz determinado resultado.
+Conteúdos da revisão
+DDL
+
+CREATE
+ALTER
+DROP
+INSERT
+
+inserção de um registro;
+inserção de vários registros.
+SELECT
+
+seleção de todas as colunas;
+seleção de colunas específicas;
+WHERE;
+operadores de comparação;
+AND;
+OR;
+ORDER BY;
+ASC;
+DESC;
+LIMIT;
+combinação de cláusulas.
+📚 2. MATERIAL DE REVISÃO
+DDL — Definição da estrutura
+Os comandos DDL são utilizados para definir ou modificar a estrutura do banco de dados.
+
+Os principais comandos estudados foram:
+
+CREATE
+ALTER
+DROP
+CREATE
+Utilizado para criar elementos do banco de dados, como bancos e tabelas.
+
+Exemplo:
+
+CREATE DATABASE vendas;
+CREATE TABLE cliente(
+    codigo_cliente INT NOT NULL AUTO_INCREMENT,
+    nome_cliente VARCHAR(40),
+    cidade VARCHAR(50),
+    PRIMARY KEY(codigo_cliente)
+);
+ALTER
+Utilizado para modificar a estrutura de um elemento existente.
+
+Exemplo:
+
+ALTER TABLE cliente
+ADD COLUMN email VARCHAR(100);
+DROP
+Utilizado para remover um elemento da estrutura do banco.
+
+Exemplo:
+
+DROP DATABASE vendas;
+Para lembrar
+CREATE → cria
+
+ALTER → modifica a estrutura
+
+DROP → remove
+INSERT — Inserindo dados
+O comando INSERT é utilizado para adicionar registros em uma tabela.
+
+Exemplo:
+
+INSERT INTO cliente
+(nome_cliente, cidade, uf)
+VALUES
+('João Silva', 'Posse', 'GO');
+Também podemos inserir vários registros de uma vez:
+
+INSERT INTO cliente
+(nome_cliente, cidade, uf)
+VALUES
+('João Silva', 'Posse', 'GO'),
+('Maria Oliveira', 'Goiânia', 'GO'),
+('Carlos Souza', 'Anápolis', 'GO');
+Para lembrar
+CREATE → cria a estrutura
+
+INSERT → coloca dados na estrutura
+SELECT — Consultando dados
+O comando SELECT é utilizado para consultar e recuperar dados armazenados nas tabelas.
+
+Para consultar todas as colunas:
+
+SELECT *
+FROM cliente;
+Para consultar somente algumas colunas:
+
+SELECT nome_cliente, cidade
+FROM cliente;
+WHERE — Filtrando registros
+O WHERE permite definir uma condição para selecionar somente os registros que atendem ao critério.
+
+Exemplo:
+
+SELECT *
+FROM cliente
+WHERE uf = 'GO';
+Principais operadores
+=       igual
+<>      diferente
+>       maior que
+<       menor que
+>=      maior ou igual
+<=      menor ou igual
+Exemplo:
+
+SELECT *
+FROM produto
+WHERE valor_unitario > 20;
+AND e OR
+Podemos combinar condições utilizando AND e OR.
+
+AND
+No AND, todas as condições precisam ser verdadeiras.
+
+SELECT *
+FROM cliente
+WHERE uf = 'GO'
+AND cidade = 'Posse';
+OR
+No OR, pelo menos uma das condições precisa ser verdadeira.
+
+SELECT *
+FROM cliente
+WHERE cidade = 'Posse'
+OR cidade = 'Goiânia';
+Para lembrar
+AND → todas as condições
+
+OR → pelo menos uma condição
+ORDER BY — Ordenando resultados
+O ORDER BY permite organizar os registros retornados pela consulta.
+
+Ordem crescente
+SELECT descricao_produto, valor_unitario
+FROM produto
+ORDER BY valor_unitario ASC;
+Ordem decrescente
+SELECT descricao_produto, valor_unitario
+FROM produto
+ORDER BY valor_unitario DESC;
+ASC  → crescente
+
+DESC → decrescente
+LIMIT — Limitando resultados
+O LIMIT permite determinar a quantidade máxima de registros retornados.
+
+Exemplo:
+
+SELECT *
+FROM produto
+LIMIT 5;
+Podemos combinar ORDER BY e LIMIT.
+
+Por exemplo, para encontrar os cinco produtos mais caros:
+
+SELECT descricao_produto, valor_unitario
+FROM produto
+ORDER BY valor_unitario DESC
+LIMIT 5;
+Combinando cláusulas
+Uma consulta pode utilizar várias cláusulas simultaneamente.
+
+Exemplo:
+
+SELECT descricao_produto, unidade_produto, valor_unitario
+FROM produto
+WHERE valor_unitario > 10
+AND unidade_produto <> 'kg'
+ORDER BY valor_unitario DESC
+LIMIT 5;
+Observe a função de cada parte:
+
+SELECT     → quais informações serão apresentadas?
+
+FROM       → de qual tabela?
+
+WHERE      → quais registros?
+
+ORDER BY   → em qual ordem?
+
+LIMIT      → quantos registros?
+💻 3. EXERCÍCIOS DE REVISÃO
+Banco vendas
+Abra o MySQL Workbench e utilize o banco de dados vendas desenvolvido durante as aulas.
+
+Para cada situação apresentada abaixo, escreva e execute uma consulta SQL.
+
+Atividade
+Liste todos os clientes cadastrados no banco de dados.
+Liste somente o nome, a cidade e a UF dos clientes.
+Liste os produtos cujo valor unitário seja maior que R$ 20,00.
+Liste os vendedores que estão com status ativo.
+Liste os clientes que pertencem ao estado de Goiás (GO) e moram em Posse.
+Liste os clientes que moram em Posse ou Goiânia.
+Liste os produtos do menor para o maior valor unitário.
+Liste os produtos do maior para o menor valor unitário.
+Liste os cinco produtos mais baratos.
+Liste os cinco produtos mais caros.
+Leia a consulta a seguir e responda o que se pede:
+SELECT descricao_produto, valor_unitario
+FROM produto
+ORDER BY valor_unitario DESC
+LIMIT 5;
+a) Qual produto aparecerá primeiro?
+
+b) Por que ele aparecerá nessa posição?
+
+📝 4. QUESTIONÁRIO DE REVISÃO
+Orientações
+Responda às questões considerando os conteúdos trabalhados nas aulas e o banco de dados vendas.
+
+Leia atentamente cada questão antes de responder.
+
+Questão 1
+Qual comando SQL é utilizado para consultar dados armazenados em uma tabela?
+
+A) CREATE
+
+B) INSERT
+
+C) SELECT
+
+D) DROP
+
+Questão 2
+Observe a consulta:
+
+SELECT nome_cliente, cidade
+FROM cliente;
+O que será apresentado?
+
+A) Todos os campos da tabela cliente.
+
+B) Somente nome_cliente e cidade dos registros da tabela cliente.
+
+C) Somente os clientes que moram em determinada cidade.
+
+D) Apenas o primeiro registro da tabela.
+
+Questão 3
+Qual é a finalidade da cláusula WHERE?
+
+A) Criar uma nova tabela.
+
+B) Ordenar os registros.
+
+C) Filtrar os registros de acordo com uma condição.
+
+D) Limitar a quantidade de colunas.
+
+Questão 4
+Considere a consulta:
+
+SELECT *
+FROM produto
+WHERE valor_unitario > 20;
+Quais produtos serão retornados?
+
+A) Produtos cujo valor seja menor que R$ 20,00.
+
+B) Produtos cujo valor seja exatamente R$ 20,00.
+
+C) Produtos cujo valor seja maior que R$ 20,00.
+
+D) Todos os produtos.
+
+Questão 5
+Qual é a diferença entre AND e OR?
+
+A) AND ordena os dados e OR limita os dados.
+
+B) AND exige que todas as condições sejam verdadeiras, enquanto OR permite que pelo menos uma seja verdadeira.
+
+C) AND cria tabelas e OR exclui tabelas.
+
+D) Não existe diferença entre eles.
+
+Questão 6
+Observe:
+
+SELECT *
+FROM cliente
+WHERE cidade = 'Posse'
+OR cidade = 'Goiânia';
+Essa consulta retorna:
+
+A) Clientes que moram simultaneamente em Posse e Goiânia.
+
+B) Clientes que não moram em nenhuma das duas cidades.
+
+C) Clientes que moram em Posse ou em Goiânia.
+
+D) Somente clientes de Goiás.
+
+Questão 7
+Qual consulta apresenta os produtos do maior para o menor preço?
+
+A)
+
+SELECT *
+FROM produto
+ORDER BY valor_unitario ASC;
+B)
+
+SELECT *
+FROM produto
+ORDER BY valor_unitario DESC;
+C)
+
+SELECT *
+FROM produto
+WHERE valor_unitario DESC;
+D)
+
+SELECT *
+FROM produto
+LIMIT valor_unitario DESC;
+Questão 8
+Qual cláusula pode ser utilizada para limitar a quantidade de registros retornados?
+
+A) WHERE
+
+B) FROM
+
+C) ORDER BY
+
+D) LIMIT
+
+Questão 9
+Qual consulta retorna os cinco produtos mais caros?
+
+A)
+
+SELECT *
+FROM produto
+LIMIT 5;
+B)
+
+SELECT *
+FROM produto
+ORDER BY valor_unitario ASC
+LIMIT 5;
+C)
+
+SELECT *
+FROM produto
+ORDER BY valor_unitario DESC
+LIMIT 5;
+D)
+
+SELECT *
+FROM produto
+WHERE valor_unitario DESC
+LIMIT 5;
+Questão 10
+Observe a consulta:
+
+SELECT descricao_produto, valor_unitario
+FROM produto
+WHERE valor_unitario > 10
+AND valor_unitario < 30
+ORDER BY valor_unitario DESC
+LIMIT 5;
+Qual alternativa descreve corretamente a consulta?
+
+A) Retorna todos os produtos, sem ordenação.
+
+B) Retorna produtos entre R$ 10,00 e R$ 30,00, ordenados do maior para o menor preço, limitando o resultado a cinco registros.
+
+C) Retorna somente produtos com valor inferior a R$ 10,00.
+
+D) Retorna os cinco produtos mais baratos, independentemente do valor.
+
+💬 5. FÓRUM PERMANENTE — TIRA-DÚVIDAS
+Ficou com alguma dúvida?
+Utilize o Fórum Permanente: Tira-Dúvidas da disciplina para enviar sua pergunta.
+
+Ao publicar sua dúvida, procure apresentar:
+
+o comando que você tentou executar;
+o resultado obtido;
+a mensagem de erro, quando houver;
+o que você esperava que acontecesse.
+Quanto mais informações você apresentar, mais fácil será identificar o problema.
