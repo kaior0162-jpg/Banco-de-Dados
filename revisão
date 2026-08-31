@@ -216,6 +216,38 @@ Liste os produtos do menor para o maior valor unitário.
 Liste os produtos do maior para o menor valor unitário.
 Liste os cinco produtos mais baratos.
 Liste os cinco produtos mais caros.
+
+-- 1
+select nome_cliente from cliente;
+
+-- 2
+select nome_cliente, cidade, uf from cliente;
+
+-- 3
+select * from produto where valor_unitario > 20;
+
+-- 4
+select * from vendedor where status="Ativo";
+
+-- 5
+select * from cliente where uf = "GO";
+
+-- 6
+select * from cliente where cidade = "Posse" or cidade = "Goiania";
+
+-- 7
+select * from produto order by valor_unitario asc;
+
+-- 8 
+select * from produto order by valor_unitario desc;
+
+-- 9 
+select * from produto order by valor_unitario asc limit  5;
+
+-- 10
+select * from produto order by valor_unitario desc limit  5;
+
+
 Leia a consulta a seguir e responda o que se pede:
 SELECT descricao_produto, valor_unitario
 FROM produto
