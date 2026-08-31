@@ -1,0 +1,371 @@
+DROP DATABASE IF EXISTS vendas;
+CREATE DATABASE vendas;
+USE vendas;
+
+CREATE TABLE cliente(
+	codigo_cliente int not null auto_increment,
+    nome_cliente varchar(40),
+    endereco varchar(100),
+    cidade varchar(50),
+    cep char(8),
+    uf char(2),
+    cpf char(11) UNIQUE,
+    PRIMARY KEY(codigo_cliente)
+);
+
+CREATE TABLE vendedor(
+	codigo_vendedor int not null auto_increment,
+    nome_vendedor varchar(40),
+    salario_fixo decimal(9,2),
+    faixa_comissao char(1),
+    status enum("ativo","inativo"),
+    PRIMARY KEY(codigo_vendedor)    
+);
+
+CREATE TABLE pedido(
+	numero_pedido int not null auto_increment,
+    prazo_entrega_dias smallint,
+    data_pedido date, 
+    codigo_cliente int,
+    codigo_vendedor int,
+    FOREIGN KEY(codigo_cliente) 
+		REFERENCES CLIENTE(codigo_cliente),
+    FOREIGN KEY(codigo_vendedor) 
+		REFERENCES VENDEDOR(codigo_vendedor),
+	PRIMARY KEY(numero_pedido)
+);
+
+CREATE TABLE produto(
+	codigo_produto int not null auto_increment,
+    unidade_produto ENUM("kg","un","cx"),
+    descricao_produto varchar(40),
+    valor_unitario decimal(8,2),
+    PRIMARY KEY(codigo_produto)
+);
+ 
+CREATE TABLE item_pedido(
+	numero_pedido int not null,
+    codigo_produto int not null,
+    quantidade decimal(6,2),
+    PRIMARY KEY(numero_pedido, codigo_produto),
+    FOREIGN KEY(numero_pedido) 
+		REFERENCES PEDIDO(numero_pedido),
+    FOREIGN KEY(codigo_produto) 
+		REFERENCES PRODUTO(codigo_produto)
+);
+
+-- =========================================================
+-- 50 CLIENTES
+-- =========================================================
+
+INSERT INTO cliente
+(nome_cliente, endereco, cidade, cep, uf, cpf)
+VALUES
+('João Silva', 'Rua A, 100', 'Posse', '73900000', 'GO', '12345678901'),
+('Maria Oliveira', 'Rua B, 107', 'Goiânia', '74000002', 'GO', '12345678902'),
+('Carlos Souza', 'Rua C, 114', 'Anápolis', '75000003', 'GO', '12345678903'),
+('Ana Pereira', 'Rua D, 121', 'Rio Verde', '75900004', 'GO', '12345678904'),
+('Fernanda Lima', 'Rua E, 128', 'Luziânia', '72800005', 'GO', '12345678905'),
+('Pedro Martins', 'Rua F, 135', 'Formosa', '73800006', 'GO', '12345678906'),
+('Juliana Costa', 'Rua G, 142', 'Brasília', '70000007', 'DF', '12345678907'),
+('Ricardo Almeida', 'Rua H, 149', 'Planaltina', '73750008', 'GO', '12345678908'),
+('Patrícia Gomes', 'Rua I, 156', 'Catalão', '75700009', 'GO', '12345678909'),
+('Lucas Ferreira', 'Rua J, 163', 'Itumbiara', '75500010', 'GO', '12345678910'),
+('Marcos Ribeiro', 'Rua K, 170', 'Posse', '73900010', 'GO', '12345678911'),
+('Camila Carvalho', 'Rua L, 177', 'Goiânia', '74000012', 'GO', '12345678912'),
+('Rafael Santos', 'Rua M, 184', 'Anápolis', '75000013', 'GO', '12345678913'),
+('Beatriz Barbosa', 'Rua N, 191', 'Rio Verde', '75900014', 'GO', '12345678914'),
+('André Moura', 'Rua O, 198', 'Luziânia', '72800015', 'GO', '12345678915'),
+('Larissa Teixeira', 'Rua P, 205', 'Formosa', '73800016', 'GO', '12345678916'),
+('Bruno Cardoso', 'Rua Q, 212', 'Brasília', '70000017', 'DF', '12345678917'),
+('Amanda Nunes', 'Rua R, 219', 'Planaltina', '73750018', 'GO', '12345678918'),
+('Diego Rocha', 'Rua S, 226', 'Catalão', '75700019', 'GO', '12345678919'),
+('Gabriela Dias', 'Rua T, 233', 'Itumbiara', '75500020', 'GO', '12345678920'),
+('Felipe Castro', 'Rua U, 240', 'Posse', '73900020', 'GO', '12345678921'),
+('Carolina Araújo', 'Rua V, 247', 'Goiânia', '74000022', 'GO', '12345678922'),
+('Gustavo Freitas', 'Rua W, 254', 'Anápolis', '75000023', 'GO', '12345678923'),
+('Mariana Mendes', 'Rua X, 261', 'Rio Verde', '75900024', 'GO', '12345678924'),
+('Eduardo Correia', 'Rua Y, 268', 'Luziânia', '72800025', 'GO', '12345678925'),
+('Isabela Silva', 'Rua Z, 275', 'Formosa', '73800026', 'GO', '12345678926'),
+('Thiago Oliveira', 'Rua A, 282', 'Brasília', '70000027', 'DF', '12345678927'),
+('Renata Souza', 'Rua B, 289', 'Planaltina', '73750028', 'GO', '12345678928'),
+('Vinícius Pereira', 'Rua C, 296', 'Catalão', '75700029', 'GO', '12345678929'),
+('Letícia Lima', 'Rua D, 303', 'Itumbiara', '75500030', 'GO', '12345678930'),
+('Daniel Martins', 'Rua E, 310', 'Posse', '73900030', 'GO', '12345678931'),
+('Bianca Costa', 'Rua F, 317', 'Goiânia', '74000032', 'GO', '12345678932'),
+('Rodrigo Almeida', 'Rua G, 324', 'Anápolis', '75000033', 'GO', '12345678933'),
+('Natália Gomes', 'Rua H, 331', 'Rio Verde', '75900034', 'GO', '12345678934'),
+('Leonardo Ferreira', 'Rua I, 338', 'Luziânia', '72800035', 'GO', '12345678935'),
+('Sabrina Ribeiro', 'Rua J, 345', 'Formosa', '73800036', 'GO', '12345678936'),
+('Marcelo Carvalho', 'Rua K, 352', 'Brasília', '70000037', 'DF', '12345678937'),
+('Priscila Santos', 'Rua L, 359', 'Planaltina', '73750038', 'GO', '12345678938'),
+('Henrique Barbosa', 'Rua M, 366', 'Catalão', '75700039', 'GO', '12345678939'),
+('Aline Moura', 'Rua N, 373', 'Itumbiara', '75500040', 'GO', '12345678940'),
+('Fábio Teixeira', 'Rua O, 380', 'Posse', '73900040', 'GO', '12345678941'),
+('Vanessa Cardoso', 'Rua P, 387', 'Goiânia', '74000042', 'GO', '12345678942'),
+('Samuel Nunes', 'Rua Q, 394', 'Anápolis', '75000043', 'GO', '12345678943'),
+('Cláudia Rocha', 'Rua R, 401', 'Rio Verde', '75900044', 'GO', '12345678944'),
+('Matheus Dias', 'Rua S, 408', 'Luziânia', '72800045', 'GO', '12345678945'),
+('Luana Castro', 'Rua T, 415', 'Formosa', '73800046', 'GO', '12345678946'),
+('Igor Araújo', 'Rua U, 422', 'Brasília', '70000047', 'DF', '12345678947'),
+('Débora Freitas', 'Rua V, 429', 'Planaltina', '73750048', 'GO', '12345678948'),
+('Wesley Mendes', 'Rua W, 436', 'Catalão', '75700049', 'GO', '12345678949'),
+('Tatiane Correia', 'Rua X, 443', 'Itumbiara', '75500050', 'GO', '12345678950');
+
+
+-- =========================================================
+-- 50 VENDEDORES
+-- =========================================================
+
+INSERT INTO vendedor
+(nome_vendedor, salario_fixo, faixa_comissao, status)
+VALUES
+('Pedro Almeida', 2300.00, 'A', 'inativo'),
+('Juliana Gomes', 2475.00, 'B', 'ativo'),
+('Ricardo Ferreira', 2650.00, 'C', 'ativo'),
+('Patrícia Ribeiro', 2825.00, 'A', 'ativo'),
+('Lucas Carvalho', 3000.00, 'B', 'ativo'),
+('Marcos Santos', 3175.00, 'C', 'inativo'),
+('Camila Barbosa', 3350.00, 'A', 'ativo'),
+('Rafael Moura', 3525.00, 'B', 'ativo'),
+('Beatriz Teixeira', 3700.00, 'C', 'ativo'),
+('André Cardoso', 3875.00, 'A', 'ativo'),
+('Larissa Nunes', 2300.00, 'B', 'inativo'),
+('Bruno Rocha', 2475.00, 'C', 'ativo'),
+('Amanda Dias', 2650.00, 'A', 'ativo'),
+('Diego Castro', 2825.00, 'B', 'ativo'),
+('Gabriela Araújo', 3000.00, 'C', 'ativo'),
+('Felipe Freitas', 3175.00, 'A', 'inativo'),
+('Carolina Mendes', 3350.00, 'B', 'ativo'),
+('Gustavo Correia', 3525.00, 'C', 'ativo'),
+('Mariana Silva', 3700.00, 'A', 'ativo'),
+('Eduardo Oliveira', 3875.00, 'B', 'ativo'),
+('Isabela Souza', 2300.00, 'C', 'inativo'),
+('Thiago Pereira', 2475.00, 'A', 'ativo'),
+('Renata Lima', 2650.00, 'B', 'ativo'),
+('Vinícius Martins', 2825.00, 'C', 'ativo'),
+('Letícia Costa', 3000.00, 'A', 'ativo'),
+('Daniel Almeida', 3175.00, 'B', 'inativo'),
+('Bianca Gomes', 3350.00, 'C', 'ativo'),
+('Rodrigo Ferreira', 3525.00, 'A', 'ativo'),
+('Natália Ribeiro', 3700.00, 'B', 'ativo'),
+('Leonardo Carvalho', 3875.00, 'C', 'ativo'),
+('Sabrina Santos', 2300.00, 'A', 'inativo'),
+('Marcelo Barbosa', 2475.00, 'B', 'ativo'),
+('Priscila Moura', 2650.00, 'C', 'ativo'),
+('Henrique Teixeira', 2825.00, 'A', 'ativo'),
+('Aline Cardoso', 3000.00, 'B', 'ativo'),
+('Fábio Nunes', 3175.00, 'C', 'inativo'),
+('Vanessa Rocha', 3350.00, 'A', 'ativo'),
+('Samuel Dias', 3525.00, 'B', 'ativo'),
+('Cláudia Castro', 3700.00, 'C', 'ativo'),
+('Matheus Araújo', 3875.00, 'A', 'ativo'),
+('Luana Freitas', 2300.00, 'B', 'inativo'),
+('Igor Mendes', 2475.00, 'C', 'ativo'),
+('Débora Correia', 2650.00, 'A', 'ativo'),
+('Wesley Silva', 2825.00, 'B', 'ativo'),
+('Tatiane Oliveira', 3000.00, 'C', 'ativo'),
+('João Souza', 3175.00, 'A', 'inativo'),
+('Maria Pereira', 3350.00, 'B', 'ativo'),
+('Carlos Lima', 3525.00, 'C', 'ativo'),
+('Ana Martins', 3700.00, 'A', 'ativo'),
+('Fernanda Costa', 3875.00, 'B', 'ativo');
+
+
+-- =========================================================
+-- 50 PRODUTOS
+-- =========================================================
+
+INSERT INTO produto
+(unidade_produto, descricao_produto, valor_unitario)
+VALUES
+('kg', 'Arroz Tipo 1', 28.90),
+('kg', 'Feijão Carioca', 9.80),
+('un', 'Refrigerante 2L', 8.50),
+('cx', 'Caixa de Chocolate', 19.90),
+('un', 'Óleo de Soja 900ml', 7.30),
+('kg', 'Açúcar Cristal', 5.90),
+('kg', 'Café Torrado', 18.50),
+('un', 'Leite Integral 1L', 5.40),
+('cx', 'Biscoito Recheado', 6.90),
+('un', 'Macarrão 500g', 4.75),
+('kg', 'Farinha de Trigo', 6.80),
+('un', 'Molho de Tomate', 3.95),
+('kg', 'Sal Refinado', 2.50),
+('cx', 'Achocolatado', 12.90),
+('un', 'Água Mineral 1,5L', 3.20),
+('kg', 'Arroz Integral', 12.50),
+('un', 'Suco de Uva 1L', 9.90),
+('cx', 'Cereal Matinal', 14.80),
+('un', 'Detergente 500ml', 2.75),
+('un', 'Sabão em Pó 1kg', 11.90),
+('kg', 'Feijão Preto', 10.50),
+('un', 'Maionese 500g', 8.90),
+('cx', 'Leite em Pó', 17.50),
+('un', 'Ketchup 400g', 7.80),
+('kg', 'Fubá 500g', 4.60),
+('un', 'Vinagre 750ml', 4.20),
+('cx', 'Bolacha Cream Cracker', 7.40),
+('un', 'Café Solúvel', 13.90),
+('kg', 'Lentilha', 11.80),
+('un', 'Creme de Leite', 4.90),
+('cx', 'Achocolatado 400g', 10.90),
+('un', 'Milho Verde', 3.70),
+('kg', 'Ervilha Seca', 8.60),
+('un', 'Leite Condensado', 6.50),
+('cx', 'Wafer Chocolate', 8.90),
+('un', 'Refrigerante 1L', 6.20),
+('kg', 'Canjica', 7.90),
+('un', 'Atum em Lata', 9.80),
+('cx', 'Chá em Sachês', 6.90),
+('un', 'Azeitona 200g', 12.40),
+('kg', 'Aveia em Flocos', 8.30),
+('un', 'Iogurte Natural', 4.50),
+('cx', 'Granola 500g', 16.90),
+('un', 'Água de Coco', 7.50),
+('kg', 'Farinha de Mandioca', 6.20),
+('un', 'Pão de Forma', 8.40),
+('cx', 'Bolacha de Leite', 6.80),
+('un', 'Geleia 250g', 9.50),
+('kg', 'Milho para Pipoca', 5.30),
+('un', 'Leite Fermentado', 6.90);
+
+
+-- =========================================================
+-- 20 PEDIDOS
+-- =========================================================
+
+INSERT INTO pedido
+(prazo_entrega_dias, data_pedido, codigo_cliente, codigo_vendedor)
+VALUES
+(3,  '2026-08-01',  1,  1),
+(5,  '2026-08-02',  2,  2),
+(7,  '2026-08-03',  3,  3),
+(4,  '2026-08-04',  4,  4),
+(10, '2026-08-05',  5,  5),
+(6,  '2026-08-06',  6,  6),
+(3,  '2026-08-07',  7,  7),
+(8,  '2026-08-08',  8,  8),
+(5,  '2026-08-09',  9,  9),
+(12, '2026-08-10', 10, 10),
+(4,  '2026-08-11', 11, 11),
+(7,  '2026-08-12', 12, 12),
+(3,  '2026-08-13', 13, 13),
+(10, '2026-08-14', 14, 14),
+(5,  '2026-08-15', 15, 15),
+(6,  '2026-08-16', 16, 16),
+(8,  '2026-08-17', 17, 17),
+(4,  '2026-08-18', 18, 18),
+(9,  '2026-08-19', 19, 19),
+(7,  '2026-08-20', 20, 20);
+
+
+-- =========================================================
+-- ITENS DOS PEDIDOS
+-- 60 registros
+-- Cada pedido possui entre 1 e 5 produtos
+-- =========================================================
+
+INSERT INTO item_pedido
+(numero_pedido, codigo_produto, quantidade)
+VALUES
+
+-- Pedido 1 → 1 item
+(1,  1,  5.00),
+
+-- Pedido 2 → 2 itens
+(2,  2,  3.00),
+(2,  5,  2.00),
+
+-- Pedido 3 → 3 itens
+(3,  3,  4.00),
+(3,  7,  2.00),
+(3,  10, 3.00),
+
+-- Pedido 4 → 4 itens
+(4,  4,  2.00),
+(4,  8,  5.00),
+(4,  12, 3.00),
+(4,  15, 2.00),
+
+-- Pedido 5 → 5 itens
+(5,  1,  10.00),
+(5,  6,  4.00),
+(5,  9,  3.00),
+(5,  14, 2.00),
+(5,  20, 1.00),
+
+-- Pedido 6 → 1 item
+(6,  11, 6.00),
+
+-- Pedido 7 → 2 itens
+(7,  13, 4.00),
+(7,  17, 3.00),
+
+-- Pedido 8 → 3 itens
+(8,  16, 2.00),
+(8,  18, 5.00),
+(8,  22, 3.00),
+
+-- Pedido 9 → 4 itens
+(9,  19, 4.00),
+(9,  23, 2.00),
+(9, 27,  5.00),
+(9, 30,  3.00),
+
+-- Pedido 10 → 5 itens
+(10, 21, 3.00),
+(10, 25, 6.00),
+(10, 28, 2.00),
+(10, 32, 4.00),
+(10, 35, 1.00),
+
+-- Pedido 11 → 1 item
+(11, 24, 5.00),
+
+-- Pedido 12 → 2 itens
+(12, 26, 3.00),
+(12, 29, 2.00),
+
+-- Pedido 13 → 3 itens
+(13, 31, 4.00),
+(13, 34, 2.00),
+(13, 38, 3.00),
+
+-- Pedido 14 → 4 itens
+(14, 33, 5.00),
+(14, 36, 2.00),
+(14, 40, 4.00),
+(14, 43, 1.00),
+
+-- Pedido 15 → 5 itens
+(15, 37, 3.00),
+(15, 39, 5.00),
+(15, 42, 2.00),
+(15, 45, 4.00),
+(15, 48, 2.00),
+
+-- Pedido 16 → 1 item
+(16, 41, 6.00),
+
+-- Pedido 17 → 2 itens
+(17, 44, 3.00),
+(17, 47, 2.00),
+
+-- Pedido 18 → 3 itens
+(18, 46, 4.00),
+(18, 49, 3.00),
+(18, 50, 2.00),
+
+-- Pedido 19 → 4 itens
+(19, 2,  5.00),
+(19, 8,  3.00),
+(19, 15, 2.00),
+(19, 30, 4.00),
+
+-- Pedido 20 → 5 itens
+(20, 5,  2.00),
+(20, 12, 4.00),
+(20, 20, 3.00),
+(20, 35, 2.00),
+(20, 45, 5.00);
