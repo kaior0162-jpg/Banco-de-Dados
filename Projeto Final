@@ -1,0 +1,239 @@
+
+create database barbosa;
+
+use barbosa;
+
+CREATE TABLE cliente (
+    codigo_cliente INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    cpf VARCHAR (11),
+    telefone VARCHAR (20),
+    cidade VARCHAR (100),
+    bairro VARCHAR (100),
+    endereco VARCHAR (150)
+);
+
+INSERT INTO cliente
+(nome, cpf, telefone, cidade, bairro, endereco)
+VALUES
+('Mariana Silva', '45676890808', '62987634260', 'Posse', 'Centro', 'Rua A'),
+('Bianca Moreira', '23487698076', '62987098713', 'Alvorada do Norte', 'Centro', 'Rua C'),
+('Pedro Santos', '21456278908', '62990908635', 'Goiânia', 'Setor Bueno', 'Rua B'),
+('Lucas Ferreira', '24311365787', '62908762456', 'Posse', 'Setor Bela Vista', 'Rua G'),
+('André Soares', '67890267825', '62980735467', 'Formosa', 'Centro', 
+'Rua F'),
+('Rodrigo Silva', '56271590809', '62987243576', 'Goiânia', 'Setor Bueno', 'Rua A'),
+('Marina Almeida', '87165378902', '62987605947', 'Posse', 'Setor Mãe Bela', 'Rua D'),
+('Rafael Martins', '52799877621', '62989070842', 'Alvorada do Norte', 'Centro', 'Rua A'),
+('Camila Souza', '21134543769', '62923657980', 'São Paulo', 'Vila Mariana', 'Rua A'),
+('Felipe Carvalho', '77864309087', '62945768790', 'Taguatinga', 'Centro', 'Rua C'),
+('Isabela Lima', '50989907655', '62942134567', 'Posse', 'Setor Mãe Bela', 'Rua D'),
+('Sofia Rocha', '32254768951', '62968590875', 'Iaciara', 'Centro', 'Rua B'),
+('Laura Mendes', '09834576509', '62932143657', 'Buritinópolis', 'Centro', 'Rua G'),
+('Gustavo Alves', '14376980753', '62990765326', 'Brasília', 'Asa Sul', 'Rua A'),
+('Sofia Costa', '09876543211', '62913457890', 'Formosa', 'Parque da Colina', 'Rua D'),
+('Daniel Rocha', '12345678911', '62954788979', 'Simolândia', 'Centro', 'Rua B'),
+('Manuela Barros', '13579506969', '62932154355', 'Luziânia', 'Centro', 'Rua E'),
+('Eduardo Nunes', '56784332521', '62966789004', 'Posse', 'Setor Buenos Aires', 'Rua B'),
+('Helena Freitas', '09456743871', '62921325576', 'Alvorada do Norte', 'Centro', 'Rua A'),
+('Felipe Monteiro', '32468790753', '62912325897', 'Goiânia', 'Setor Oeste', 'Rua A');
+
+CREATE TABLE categoria (
+codigo_categoria INT PRIMARY KEY AUTO_INCREMENT,
+nome_categoria VARCHAR(100),
+descricao VARCHAR(200)
+);
+
+INSERT INTO categoria (nome_categoria, descricao)
+VALUES
+('Mel', 'Produtos derivados do mel'),
+('Conserva de Pimenta', 'Conservas de pimenta'),
+('Pinga', 'Bebidas de diferentes sabores'),
+('Rapadura', 'Produtos derivados da cana-de-acucar');
+
+
+CREATE TABLE produto (
+codigo_produto INT PRIMARY KEY AUTO_INCREMENT,
+nome VARCHAR(100),
+preco DECIMAL(10,2),
+codigo_categoria INT,
+FOREIGN KEY (codigo_categoria)
+REFERENCES categoria(codigo_categoria)
+);
+
+INSERT INTO produto (nome, preco, codigo_categoria)
+VALUES
+('Mel 1 Litro', 100.00, 1),
+('Mel 500 mL', 50.00, 1),
+('Mel 350 mL', 25.00, 1),
+('Conserva Pequena', 25.00, 2),
+('Conserva Media', 35.00, 2),
+('Conserva Grande', 40.00, 2),
+('Pinga Pura 1 Litro', 30.00, 3),
+('Pinga Pura 375 mL', 15.00, 3),
+('Pinga Jatoba 1 Litro', 30.00, 3),
+('Pinga Jatoba 375 mL', 15.00, 3),
+('Pinga Bananinha 1 Litro', 30.00, 3),
+('Pinga Bananinha 375 mL', 15.00, 3),
+('Pinga Mutamba 1 Litro', 30.00, 3),
+('Pinga Mutamba 375 mL', 15.00, 3),
+('Pinga Canelinha 1 Litro', 30.00, 3),
+('Pinga Canelinha 375 mL', 15.00, 3),
+('Mini Rapadura - Pacote com 6 pedacos', 6.00, 4),
+('Mini Rapadura - Pacote com 10 pedacos', 12.00, 4),
+('Mini Rapadura - Pacote com 15 pedacos', 18.00, 4),
+('Mini Rapadura - Pacote com 20 pedacos', 24.00, 4);
+
+
+CREATE TABLE venda (
+    codigo_venda INT NOT NULL AUTO_INCREMENT,
+    codigo_cliente INT,
+    data_venda DATE,
+    valor_total DECIMAL(22,2),
+    FOREIGN KEY (codigo_cliente) REFERENCES cliente(codigo_cliente),
+    PRIMARY KEY (codigo_venda)
+);
+
+INSERT INTO venda (codigo_cliente, data_venda, valor_total)
+VALUES
+(1, '2026-11-10', 100.00),
+(2, '2026-11-11', 100.00),
+(3, '2026-11-12', 50.00),
+(1, '2026-11-13', 50.00),
+(2, '2026-11-14', 35.00),
+(3, '2026-11-15', 120.00),
+(1, '2026-11-15', 60.00),
+(2, '2026-11-15', 60.00),
+(4, '2026-11-16', 90.00),
+(5, '2026-11-16', 30.00),
+(6, '2026-11-17', 60.00),
+(7, '2026-11-17', 75.00),
+(8, '2026-11-18', 150.00),
+(9, '2026-11-18', 60.00),
+(10, '2026-11-19', 240.00),
+(11, '2026-11-19', 60.00),
+(12, '2026-11-20', 60.00),
+(13, '2026-11-20', 60.00),
+(14, '2026-11-21', 90.00),
+(15, '2026-11-21', 240.00);
+
+CREATE TABLE item_venda (
+    codigo_item INT PRIMARY KEY AUTO_INCREMENT,
+    codigo_venda INT NOT NULL,
+    codigo_produto INT NOT NULL,
+    quantidade INT NOT NULL,
+    preco_unitario DECIMAL(10,2) NOT NULL,
+
+    FOREIGN KEY (codigo_venda)
+        REFERENCES venda(codigo_venda),
+
+    FOREIGN KEY (codigo_produto)
+        REFERENCES produto(codigo_produto)
+);
+
+INSERT INTO item_venda
+(codigo_venda, codigo_produto, quantidade, preco_unitario)
+VALUES
+(1, 1, 1, 100.00),
+(2, 2, 2, 50.00),
+(3, 3, 2, 25.00),
+(4, 4, 2, 25.00),
+(5, 5, 1, 35.00),
+(6, 6, 3, 40.00),
+(7, 7, 2, 30.00),
+(8, 8, 4, 15.00),
+(9, 9, 3, 30.00),
+(10, 10, 2, 15.00),
+(11, 11, 2, 30.00),
+(12, 12, 5, 15.00),
+(13, 13, 5, 30.00),
+(14, 14, 4, 15.00),
+(15, 15, 8, 30.00),
+(16, 16, 4, 15.00),
+(17, 17, 10, 6.00),
+(18, 18, 5, 12.00),
+(19, 19, 5, 18.00),
+(20, 20, 10, 24.00);
+
+CREATE TABLE estoque (
+    codigo_estoque INT NOT NULL AUTO_INCREMENT,
+    codigo_produto INT,
+    quantidade DECIMAL(7,3),
+    data_atualizacao DATE, 
+    FOREIGN KEY (codigo_produto) REFERENCES produto(codigo_produto),
+    PRIMARY KEY (codigo_estoque)
+);
+
+INSERT INTO estoque (codigo_produto, quantidade, data_atualizacao)
+VALUES
+(1, 1.000, '2026-11-10'),
+(2, 3.000, '2026-11-10'),
+(3, 5.000, '2026-11-10'),
+(4, 6.000, '2026-11-11'),
+(5, 8.000, '2026-11-11'),
+(6, 2.000, '2026-11-11'),
+(7, 5.000, '2026-11-12'),
+(8, 5.000, '2026-11-12'),
+(9, 10.000, '2026-11-12'),
+(10, 20.000, '2026-11-13'),
+(11, 30.000, '2026-11-13'),
+(12, 2.000, '2026-11-13'),
+(13, 11.000, '2026-11-14'),
+(14, 22.000, '2026-11-14'),
+(15, 33.000, '2026-11-14'),
+(16, 44.000, '2026-11-14'),
+(17, 55.000, '2026-11-15'),
+(18, 55.000, '2026-11-15'),
+(19, 55.000, '2026-11-15'),
+(20, 55.000, '2026-12-16');
+
+
+-- CONSULTAS --
+
+use barbosa;
+
+-- todos os produtos de uma categoria --
+
+SELECT nome, preco
+FROM produto
+WHERE codigo_categoria = 3;
+
+-- dados das vendas junto com os clientes -
+
+SELECT
+    c.nome,
+    v.data_venda,
+    v.valor_total
+FROM cliente c
+JOIN venda v
+    ON c.codigo_cliente = v.codigo_cliente;
+    
+    -- Calcular o faturamento total das vendas --
+    
+SELECT SUM(valor_total) AS faturamento_total
+FROM venda;
+
+	-- Mostrar quantas vendas cada cliente realizou 
+
+SELECT
+    c.nome,
+    COUNT(v.codigo_venda) AS quantidade_vendas
+FROM cliente c
+LEFT JOIN venda v
+    ON c.codigo_cliente = v.codigo_cliente
+GROUP BY c.codigo_cliente, c.nome;
+
+	-- Consultar os produtos com estoque baixo --
+    
+SELECT
+    p.nome,
+    e.quantidade
+FROM produto p
+INNER JOIN estoque e
+    ON p.codigo_produto = e.codigo_produto
+WHERE e.quantidade <= 5;
+
+	-- Mostrar o valor médio das vendas 
+    
+    SELECT AVG(valor_total) AS media_vendas
+FROM venda;
